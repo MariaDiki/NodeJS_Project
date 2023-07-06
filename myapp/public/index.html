@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel="stylesheet" href="stylesheets/styleIndex.css">
+	<title>Login Page</title>
+	<script>
+		async function login() {
+			var username = document.getElementById("username").value;
+			var password = document.getElementById("password").value;
+
+			if (username === "" || password === "") {
+				document.querySelector(".error-message").innerHTML = "Please enter both username and password.";
+				return;
+			}
+
+			// var xhr = new XMLHttpRequest();
+			// xhr.open("POST", "/api", true);
+			// console.log('post on front!!!!!')
+			// xhr.setRequestHeader("Content-Type", "application/json");
+
+			// xhr.onload = function (data) {
+			// 	if (xhr.status >= 200 && xhr.status < 400) {
+			// 		window.location.href = `productsPage.html?username=${username}`;
+			// 	} else {
+			// 		document.querySelector(".error-message").innerHTML = "Invalid username or password.";
+			// 		document.getElementById("password").value = "";
+			// 	}
+			// };
+			// xhr.onerror = function (error) {
+			// 	console.error('Error:', error);
+			// };
+			// xhr.send(data);
+			// 	try {
+				// 		const response = await fetch(`http://localhost:3000/api`, {
+					// 		method: 'POST',
+					// 		headers: {
+						// 			'Content-Type': 'application/json'
+						// 		},
+						// 		body: JSON.stringify(data1)
+						// 		});
+						// 		 const data = await response.json();
+						// 		console.log('data:', data);
+						// 		return data;
+						// 	} catch (error) {
+							// 		console.error('Error:', error);
+							// 	  }
+			//const data1 = {username: 'maria', password:'1234'}
+			const data2 = {username: `${username}`, password: `${password}`};	
+			fetch(`http://localhost:3000/login`, {
+				method: 'POST',
+				headers: {
+				'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data2)
+			})
+			   .then(response => response.json())
+				.then(data => {
+				console.log('Success:', data);
+				})
+				.catch((error) => {
+				console.error('Error:', error);
+			    });
+
+
+		}
+
+
+
+	</script>
+
+</head>
+
+<body class="main">
+
+	<div class="logo">DuckingDuckCo. <img src="./images/duckingDucjLogo.jpg" alt="" style="height: 50px;"></div>
+	<div class="login-box">
+		<h1>Login</h1>
+		<div class="error-message"></div>
+		<div class="textbox">
+			<i class="fas fa-user"></i>
+			<input type="text" placeholder="Username" id="username" maxlength="12" required>
+		</div>
+		<div class="textbox">
+			<i class="fas fa-lock"></i>
+			<input type="password" placeholder="Password" id="password" maxlength="9" required>
+		</div>
+		<input type="button" class="btn" value="Sign in" onclick="login()">
+		<a href="registerPage.html">Not registered?</a>
+	</div>
+
+</body>
+
+</html>
