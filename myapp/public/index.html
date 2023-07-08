@@ -19,38 +19,6 @@
 				return;
 			}
 
-			// var xhr = new XMLHttpRequest();
-			// xhr.open("POST", "/api", true);
-			// console.log('post on front!!!!!')
-			// xhr.setRequestHeader("Content-Type", "application/json");
-
-			// xhr.onload = function (data) {
-			// 	if (xhr.status >= 200 && xhr.status < 400) {
-			// 		window.location.href = `productsPage.html?username=${username}`;
-			// 	} else {
-			// 		document.querySelector(".error-message").innerHTML = "Invalid username or password.";
-			// 		document.getElementById("password").value = "";
-			// 	}
-			// };
-			// xhr.onerror = function (error) {
-			// 	console.error('Error:', error);
-			// };
-			// xhr.send(data);
-			// 	try {
-				// 		const response = await fetch(`http://localhost:3000/api`, {
-					// 		method: 'POST',
-					// 		headers: {
-						// 			'Content-Type': 'application/json'
-						// 		},
-						// 		body: JSON.stringify(data1)
-						// 		});
-						// 		 const data = await response.json();
-						// 		console.log('data:', data);
-						// 		return data;
-						// 	} catch (error) {
-							// 		console.error('Error:', error);
-							// 	  }
-			//const data1 = {username: 'maria', password:'1234'}
 			const data2 = {username: `${username}`, password: `${password}`};	
 			fetch(`http://localhost:3000/login`, {
 				method: 'POST',
@@ -62,10 +30,12 @@
 			   .then(response => response.json())
 				.then(data => {
 				console.log('Success:', data);
+				if(data.error){
+					document.querySelector(".error-message").innerHTML = data.error;
+				} else {
+					window.location.href = `productsPage.html?username=${username}`;
+				}
 				})
-				.catch((error) => {
-				console.error('Error:', error);
-			    });
 
 
 		}

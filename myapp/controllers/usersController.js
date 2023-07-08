@@ -16,13 +16,14 @@ class UsersController {
         const data = {username,password}
 
          this.dbQueries.checkUser(data,(ans)=>{
-            console.log('ans from login db',ans)
+            console.log('ans from login db',ans);
+            if (ans == "User not found"){
+                res.send({error: 'User not exists, Please Register'});
+            } else {
+                res.send(data);
+            }
 
-            res.send({ok:'abc'})
-            // Store the username in the savedUsername variable
-            // Continue Here
-
-        })
+        });
     }
     getUsers(req,res){
         

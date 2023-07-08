@@ -24,16 +24,13 @@ class Queries {
             console.error('Error executing query:', error);
             callback(error)
           }else {
+            if (results.length == 0){
+              callback("User not found");
+            } else {
             callback(results) 
           }
+        }
 
-          // if (results.length > 0) {
-          //   // Username and password match, respond with success
-          //   callback(results)
-          // } else {
-          //   // Invalid username or password
-          //   callback(error)
-          // }
       }); 
 }
 
