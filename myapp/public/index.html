@@ -19,26 +19,34 @@
 				return;
 			}
 
-			const data2 = {username: `${username}`, password: `${password}`};	
+			const data2 = { username: `${username}`, password: `${password}` };
 			fetch(`http://localhost:3000/login`, {
 				method: 'POST',
 				headers: {
-				'Content-Type': 'application/json'
+					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify(data2)
 			})
-			   .then(response => response.json())
+				.then(response => response.json())
 				.then(data => {
-				console.log('Success:', data);
-				if(data.error){
-					document.querySelector(".error-message").innerHTML = data.error;
-				} else {
-					window.location.href = `productsPage.html?username=${username}`;
-				}
+					console.log('Success:', data);
+					if (data.error) {
+						document.querySelector(".error-message").innerHTML = data.error;
+					} else {
+						window.location.href = `productsPage.html?username=${username}`;
+					}
 				})
 
 
 		}
+		const urlParams = new URLSearchParams(window.location.search);
+		const message = urlParams.get('message');
+
+		// Display the message if it exists
+		if (message) {
+			alert(message);
+		}
+
 
 
 
@@ -63,6 +71,8 @@
 		<input type="button" class="btn" value="Sign in" onclick="login()">
 		<a href="registerPage.html">Not registered?</a>
 	</div>
+
+	
 
 </body>
 

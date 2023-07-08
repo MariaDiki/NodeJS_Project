@@ -1,42 +1,13 @@
 const { UsersService } = require('../services/usersService');
-const { Queries } = require('../services/queries');
+
 
 
 class UsersController {
 
     constructor(){
-        //this.usersService = new UsersService();
-        this.dbQueries = new Queries()
+        this.usersService = new UsersService();
     }
 
-   async checkLogin(req,res){
-        console.log('hello2',req.body);
-        const username = req.body.username;
-        const password = req.body.password;
-        const data = {username,password}
-
-         this.dbQueries.checkUser(data,(ans)=>{
-            console.log('ans from login db',ans);
-            if (ans == "User not found"){
-                res.send({error: 'User not exists, Please Register'});
-            } else {
-                res.send(data);
-            }
-
-        });
-    }
-    getUsers(req,res){
-        
-        this.usersService.getUsers((error,data)=>{
-            if(error){
-                res.end(error);
-            } else {
-                console.log(data);
-                res.end(JSON.stringify(data));
-            }
-        })
-
-    }
     newUser(req,res){
         let user = {
             name: req.body.name,
@@ -54,7 +25,8 @@ class UsersController {
                 res.end(JSON.stringify(data));
             } 
         })
+        res.redirect('/?message=Registered%20Successfully');
     } 
 }
 
-module.exports =  new UsersController()
+module.exports =  UsersController;

@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const bodyParser = require('body-parser');
 const  {Queries} = require("../services/queries.js")
-const UsersController =  require("../controllers/usersController.js")
+const UsersController =  require("../controllers/usersController.js");
+const loginController = require('../controllers/loginController.js');
 
 const urlencodedParser = bodyParser.urlencoded({extended: false});
 
@@ -15,7 +16,7 @@ router.get('/', function(req, res, next) { res.sendFile('index.html', { root: __
 // router.post('/login', urlencodedParser, function(req, res, next) {
 
 
-router.post('/login',(req, res) => UsersController.checkLogin(req,res));
+router.post('/login',(req, res) => loginController.checkLogin(req,res));
 
 
 
