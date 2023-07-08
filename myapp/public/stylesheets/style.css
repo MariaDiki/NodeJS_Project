@@ -1,6 +1,6 @@
 .main {
 
-  background-color: black;
+	background: radial-gradient(circle, rgba(210,242,239,1) 0%, rgba(128,247,134,1) 100%);
   width: 100%;
   margin:0 auto;  
 }
@@ -11,7 +11,7 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	color: rgb(238, 231, 231);
+	color: #4caf50;
 }
 
 .regiister-box h1 {
@@ -38,7 +38,7 @@
 	border: none;
 	outline: none;
 	background: none;
-	color:white;
+	color:black;
 	font-size: 18px;
 	float: left;
 	width: 80%;
@@ -57,7 +57,7 @@
 	width: 100%;
 	background: none;
 	border: 2px solid #4caf50;
-	color: white;
+	color: #4caf50;
 	padding: 5px;
 	font-size: 18px;
 	cursor: pointer;

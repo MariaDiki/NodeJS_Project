@@ -2,7 +2,7 @@
   .logo {
     display: inline-block;
     align-items: right;
-    color: green;
+    color: #4caf50;
     font-size: large;
     font-weight: bold;
   }
@@ -14,7 +14,7 @@
   }
   .usernameButton {
     
-    background-color: green;
+    background-color: rgb(123, 207, 233);
     font-size: large;
     font-weight: bold;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -23,9 +23,10 @@
   }
 
   .logoutButton {
-    background-color: crimson;
+    background-color: rgb(5, 1, 1);
     font-size: large;
     font-weight: bold;
+    color: white;
   }
   
   .username-dropdown {
@@ -44,14 +45,14 @@
 
 .header{
     width: 100%;
-    background-color: rgb(7, 7, 7);
-
+    height: 80px;
+    background: linear-gradient(90deg, rgba(13,180,24,1) 0%, rgba(142,247,147,1) 35%, rgba(178,249,189,1) 100%);
     padding: 20px;
 
 }
 .main {
 
-    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+	background: radial-gradient(circle, rgba(210,242,239,1) 0%, rgba(128,247,134,1) 100%);
     width: 100%;
     height: 100%;
     margin:0 auto;
@@ -61,37 +62,75 @@
 
 .card-container {
   display: flex;
-  justify-content: space-evenly;
+/*   justify-content: space-evenly;
+ */
+
+ flex-direction: column;
+ align-items: center;
+ margin-top: 10px;
 
 }
 
-.column {
-  flex: 1;
-  margin: 10px;
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
 }
+
 
 .card {
-  background-color:black;
+  background-color: #8cf393;
   padding: 10px;
-  margin-bottom: 10px;
-  color: #f2f2f2;
+  width: calc(33.33% - 20px);
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
 
 }
 
+
+.card img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+  display: block;
+  object-fit: cover;
+
+}
+
+.card h2 {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.card p {
+  margin-bottom: 5px;
+}
+
+.order-dropdown select {
+  width: 100%;
+}
 
 
 
 .footer{
-  background-color: black;
+  background: linear-gradient(90deg, rgba(13,180,24,1) 0%, rgba(142,247,147,1) 35%, rgba(178,249,189,1) 100%);
   padding: 20px;
   width: 100%;
+  height: 50px;
   position: fixed;
   left: 0;
   bottom: 0;
 }
 
 .logoFooter {
-    color: #f2f2f2;
+    color:  rgb(14, 58, 71);
     text-align: right;
   
 }
