@@ -2,9 +2,11 @@
   .logo {
     display: inline-block;
     align-items: right;
-    color: #4caf50;
+    color: black;
     font-size: large;
     font-weight: bold;
+    padding-left:  300px;
+    font-family: Bookman, URW Bookman L, serif;
   }
   
   .username-container {
@@ -14,10 +16,10 @@
   }
   .usernameButton {
     
-    background-color: rgb(123, 207, 233);
+    background-color:#cb9b51;
     font-size: large;
     font-weight: bold;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Bookman, URW Bookman L, serif;
     margin-top: 10px;
 
   }
@@ -46,13 +48,22 @@
 .header{
     width: 100%;
     height: 80px;
-    background: linear-gradient(90deg, rgba(13,180,24,1) 0%, rgba(142,247,147,1) 35%, rgba(178,249,189,1) 100%);
+    background: linear-gradient(
+      to right,
+      #462523 0,
+           #cb9b51 22%, 
+      #f6e27a 45%,
+      #f6f2c0 50%,
+      #f6e27a 55%,
+      #cb9b51 78%,
+      #462523 100%
+      );
     padding: 20px;
 
 }
 .main {
 
-	background: radial-gradient(circle, rgba(210,242,239,1) 0%, rgba(128,247,134,1) 100%);
+	background:rgb(0, 0, 0);
     width: 100%;
     height: 100%;
     margin:0 auto;
@@ -81,10 +92,10 @@
 
 
 .card {
-  background-color: #8cf393;
+  background-color: white;
   padding: 10px;
   width: calc(33.33% - 20px);
-  color: black;
+  color:  #cb9b51;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -96,7 +107,7 @@
 
 
 .card img {
-  width: 100px;
+  width: 180px;
   height: auto;
   margin-bottom: 10px;
   display: block;
@@ -120,20 +131,26 @@
 
 
 .footer{
-  background: linear-gradient(90deg, rgba(13,180,24,1) 0%, rgba(142,247,147,1) 35%, rgba(178,249,189,1) 100%);
+  background: linear-gradient(
+		to right,
+		#462523 0,
+			   #cb9b51 22%, 
+		#f6e27a 45%,
+		#f6f2c0 50%,
+		#f6e27a 55%,
+		#cb9b51 78%,
+		#462523 100%
+		);
   padding: 20px;
-  width: 100%;
-  height: 50px;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-}
 
-.logoFooter {
-    color:  rgb(14, 58, 71);
+  height: 50px;
+	position: relative;
+	bottom: 0;
+	width: 100%;
+    color: black;
     text-align: right;
-  
-}
+    font-family: Bookman, URW Bookman L, serif;
+  }
 
 
 
