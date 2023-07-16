@@ -14,6 +14,13 @@
     display: inline-block;
     margin-right: 20px;
   }
+
+  .cartButton{
+    background-color: rgb(250, 228, 101);
+    font-size: large;
+    font-weight: bold;
+    font-family: Bookman, URW Bookman L, serif;
+  }
   .usernameButton {
     
     background-color:#cb9b51;
@@ -21,6 +28,12 @@
     font-weight: bold;
     font-family: Bookman, URW Bookman L, serif;
     margin-top: 10px;
+
+  }
+
+  .card p {
+
+     font-size: large;
 
   }
 
@@ -104,6 +117,9 @@
 
 
 }
+.card p{
+  color: black;
+}
 
 
 .card img {
@@ -112,7 +128,7 @@
   margin-bottom: 10px;
   display: block;
   object-fit: cover;
-
+  overflow: hidden;
 }
 
 .card h2 {
@@ -126,6 +142,29 @@
 
 .order-dropdown select {
   width: 100%;
+}
+
+.add-cart {
+  position: absolute;
+  width: 100%;
+  background-color: #cb9b51;
+  color: black;
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  cursor: pointer;
+  text-align: center;
+}
+
+.card:hover .cart1,
+.card:hover .cart2,
+.card:hover .cart3,
+.card:hover .cart4,
+.card:hover .cart5,
+.card:hover .cart6  {
+    bottom: 0;
+    opacity: 1;
+    padding: 10px;
+    text-decoration: none;
 }
 
 
@@ -144,12 +183,13 @@
   padding: 20px;
 
   height: 50px;
-	position: relative;
+	position: absolute;
 	bottom: 0;
 	width: 100%;
     color: black;
     text-align: right;
     font-family: Bookman, URW Bookman L, serif;
+    
   }
 
 

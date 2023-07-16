@@ -28,8 +28,10 @@
     });
 
 
-
   </script>
+      <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+      <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+      <script src="./javascripts/cart.js"></script>
 
 </head>
 
@@ -51,6 +53,7 @@
         </div>
       </div>
       <div class="col text-end">
+        <button class="cartButton" id="cartButton"><ion-icon name="basket"></ion-icon> Cart <span>0</span></a></button>
         <div class="username-container">
           <button class="usernameButton" id="usernameButton"></button>
           <div class="username-dropdown">
@@ -64,92 +67,62 @@
 
 
 
-  <main class="main">
+  <main class="bodymain" id="bodymain">
     <div class="card-container">
       <div class="row">
         <div class="card">
           <img src="./images/Dring.jpg" alt="Product 1">
           <h4>Dimonds Ring</h4>
-          <p>Short description of Product 1</p>
-          <div class="order-dropdown">
-            <select>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-          </div>
+          <p>14K Gold Ring Studded with White Gentle Diamonds</p>
+          <p>950$</p>
+          <a class="add-cart cart1" href="#">Add To Cart</a>
         </div>
         <div class="card">
           <img src="./images/bracelat.jpg" alt="Product 2">
           <h4>Golden bracelat</h4>
-          <p>Short description of Product 2</p>
-          <div class="order-dropdown">
-            <select>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-          </div>
+          <p>Yellow Gold Curb Chain Bracelet</p>
+          <p>130$</p>
+          <a class="add-cart cart2" href="#">Add To Cart</a>
+
         </div>
         <div class="card">
           <img src="./images/short_earings.jpg" alt="Product 3">
-          <h4>Golden Earings</h4>
-          <p>Short description of Product 3</p>
-          <div class="order-dropdown">
-            <select>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-          </div>
+          <h4>Golden Earrings</h4>
+          <p>18 Mm Gold Hoop Earrings Studded with Diamonds</p>
+          <p>999$</p>
+          <a class="add-cart cart3" href="#">Add To Cart</a>
+
         </div>
       </div>
       <div class="row">
         <div class="card">
           <img src="./images/weddingR.jpg" alt="Product 4">
-          <h4>Golden Ring</h4>
-          <p>Short description of Product 4</p>
-          <div class="order-dropdown">
-            <select>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-          </div>
+          <h4>Golden Rings</h4>
+          <p>A Pair of Traditional 14k Golden Wedding Rings</p>
+          <p>150$</p>
+          <a class="add-cart cart4" href="#">Add To Cart</a>
+
         </div>
         <div class="card">
           <img src="./images/mandarinN.jpg" alt="Product 5">
           <h4>Golden Necklace</h4>
-          <p>Short description of Product 5</p>
-          <div class="order-dropdown">
-            <select>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-          </div>
+          <p>Mandarin 14k Gold Necklace</p>
+          <p>250$</p>
+          <a class="add-cart cart5" href="#">Add To Cart</a>
+
         </div>
         <div class="card">
           <img src="./images/long_earings.jpg" alt="Product 6">
-          <h4>Long Golden Earings</h4>
-          <p>Short description of Product 6</p>
-          <div class="order-dropdown">
-            <select>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-          </div>
+          <h4>Long Golden Earrings</h4>
+          <p>Gold Hoop Earrings Studded with Diamonds with Hanging Chains</p>
+          <p>1,450$</p>
+          <a class="add-cart cart6" href="#">Add To Cart</a>
+
         </div>
       </div>
     </div>
-  </main>
+    
+</main>
 
 
   <footer class="footer" id="footer">
