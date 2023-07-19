@@ -34,6 +34,8 @@ class Queries {
       }); 
 }
 
+  
+
 }
 
 module.exports = {Queries: Queries }

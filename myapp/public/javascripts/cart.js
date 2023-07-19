@@ -115,10 +115,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     }
+
+
     function displayCart() {
 
         var cartButton = document.querySelector(".cartButton");
         var bodymain = document.getElementById("bodymain");
+
         cartButton.onclick = function () {
             bodymain.innerHTML = "";
             bodymain.innerHTML = `
@@ -215,6 +218,23 @@ document.addEventListener('DOMContentLoaded', function () {
             .basketTotal{
                 width: 10%;
             }
+
+            .OrderButton {
+    
+                background-color:#cb9b51;
+                font-size: large;
+                font-weight: bold;
+                font-family: Bookman, URW Bookman L, serif;
+                margin-top: 10px;
+                position: relative;
+                display: inline-block;
+
+              }
+              .Order-Container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
             
             </style>
 
@@ -232,40 +252,45 @@ document.addEventListener('DOMContentLoaded', function () {
               </div>
               <div class="products"></div>
             </div>
-          `;
-        
+                <div class="Order-Container">
+                <button class="OrderButton" id="OrderButton" onclick="order()">Place Order</button>
+            </div>
+           
+   
+            `;
 
-        let cartItems = localStorage.getItem("productsInCart");
-        cartItems = JSON.parse(cartItems);
-        let cartCost = localStorage.getItem('totalCost');
-        let productContainer = document.querySelector(".products");
+
+            let cartItems = localStorage.getItem("productsInCart");
+            cartItems = JSON.parse(cartItems);
+            let cartCost = localStorage.getItem('totalCost');
+            let productContainer = document.querySelector(".products");
 
 
-        console.log(cartItems);
+            console.log(cartItems);
 
-        if (cartItems && productContainer) {
-            productContainer.innerHTML = '';
-            Object.values(cartItems).map(item => {
-                productContainer.innerHTML += `
+            if (cartItems && productContainer) {
+                productContainer.innerHTML = '';
+                Object.values(cartItems).map(item => {
+                    productContainer.innerHTML += `
                 <div class="products">
                   <div class="product">
-                    <ion-icon name="close-circle"></ion-icon>
+                  <ion-icon name="close-circle" onclick="removeProduct(${item.tag})"></ion-icon>
                     <img src="images/${item.tag}.jpg" alt="jewelry">
                     <span>${item.name}</span>
                   </div>
                   <div class="price">${item.price}$</div>
                   <div class="quantity">
-                    <ion-icon name="remove-circle-outline"></ion-icon>
+                    <ion-icon name="remove-circle-outline" onclick="decreaseQuantity('${item.tag}')"></ion-icon>
                     <span>${item.inCart}</span>
-                    <ion-icon name="add-circle-outline"></ion-icon>
+                    <ion-icon name="add-circle-outline" onclick="increaseQuantity('${item.tag}')"></ion-icon>
                   </div>  
                   <div class="total">${item.inCart * item.price}</div>
                 </div>
               `;
-            });
-            console.log("inside function");
+                });
+                console.log("inside function");
 
-            productContainer.innerHTML += `
+                productContainer.innerHTML += `
               <div class="basketTotalContainer">
                 <h4 class="basketTotalTitle">
                   Basket Total
@@ -275,15 +300,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 </h4>
               </div>
             `;
-        }
-        console.log("Check")
-    };
 
 
+            }
+            console.log("Check");
 
+        };
+        
     }
-
-
+    function removeProduct(tag){
+        console.log("check remove");
+    }
     onLoadCartNumbers();
     displayCart();
 
