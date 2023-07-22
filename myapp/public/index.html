@@ -39,6 +39,10 @@
 
 
 		}
+		async function loginAsGuest(){
+			window.location.href = `productsPage.html?username=Guest`;
+
+		}
 		const urlParams = new URLSearchParams(window.location.search);
 		const message = urlParams.get('message');
 
@@ -69,6 +73,8 @@
 			<input type="password" placeholder="Password" id="password" maxlength="9" required>
 		</div>
 		<input type="button" class="btn" value="Sign In" onclick="login()">
+		<input type="button" class="btn" value="Sign In As Guest" onclick="loginAsGuest()">
+
 		<a href="registerPage.html">Not Registered?</a>
 	</div>
 

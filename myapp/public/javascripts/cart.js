@@ -1,51 +1,76 @@
 
+var gProducts = [
+    {
+        id: 0,
+        name: 'Dimonds Ring',
+        tag: 'Dring',
+        price: 950,
+        inCart: 0
+    },
+    {
+        id: 1,
+        name: 'Golden bracelat',
+        tag: 'bracelat',
+        price: 130,
+        inCart: 0
+    },
+    {
+        id: 2,
+        name: 'Golden Earrings',
+        tag: 'short_earings',
+        price: 999,
+        inCart: 0
+    },
+    {
+        id: 3,
+        name: 'Golden Rings',
+        tag: 'weddingR',
+        price: 150,
+        inCart: 0
+    },
+    {
+        id: 4,
+        name: 'Golden Necklace',
+        tag: 'mandarinN',
+        price: 250,
+        inCart: 0
+    },
+    {
+        id: 5,
+        name: 'Long Golden Earrings',
+        tag: 'long_earings',
+        price: 1450,
+        inCart: 0
+    }
+];
+
+
+
+
+function removeProduct(id){
+    console.log("id ====>:",id);
+    console.log("gProducts ====>:",gProducts);
+
+        const wantedProduct = gProducts.filter(product => product.id != id)
+    
+    console.log("wantedProduct ====>:",wantedProduct);
+    gProducts = wantedProduct
+    renderProducts(gProducts)
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
     var carts = document.querySelectorAll('.add-cart');
     console.log(carts);
 
-    let products = [
-        {
-            name: 'Dimonds Ring',
-            tag: 'Dring',
-            price: 950,
-            inCart: 0
-        },
-        {
-            name: 'Golden bracelat',
-            tag: 'bracelat',
-            price: 130,
-            inCart: 0
-        },
-        {
-            name: 'Golden Earrings',
-            tag: 'short_earings',
-            price: 999,
-            inCart: 0
-        },
-        {
-            name: 'Golden Rings',
-            tag: 'weddingR',
-            price: 150,
-            inCart: 0
-        },
-        {
-            name: 'Golden Necklace',
-            tag: 'mandarinN',
-            price: 250,
-            inCart: 0
-        },
-        {
-            name: 'Long Golden Earrings',
-            tag: 'long_earings',
-            price: 1450,
-            inCart: 0
-        }
-    ];
+    
+
+    
 
     for (let i = 0; i < carts.length; i++) {
         carts[i].addEventListener('click', () => {
-            cartNumbers(products[i]);
-            totalCost(products[i]);
+            cartNumbers(gProducts[i]);
+            totalCost(gProducts[i]);
 
 
         })
@@ -77,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function setItems(product) {
         let cartItems = localStorage.getItem('productsInCart');
         cartItems = JSON.parse(cartItems);
+        gProducts  = cartItems
         console.log("My cart items are:", cartItems);
 
         if (cartItems != null) {
@@ -115,9 +141,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     }
+ 
 
 
     function displayCart() {
+
+
+        
 
         var cartButton = document.querySelector(".cartButton");
         var bodymain = document.getElementById("bodymain");
@@ -262,11 +292,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
             let cartItems = localStorage.getItem("productsInCart");
             cartItems = JSON.parse(cartItems);
+           // gProducts = cartItems
             let cartCost = localStorage.getItem('totalCost');
             let productContainer = document.querySelector(".products");
 
 
-            console.log(cartItems);
+            console.log('cartItems===>',cartItems);
 
             if (cartItems && productContainer) {
                 productContainer.innerHTML = '';
@@ -274,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     productContainer.innerHTML += `
                 <div class="products">
                   <div class="product">
-                  <ion-icon name="close-circle" onclick="removeProduct(${item.tag})"></ion-icon>
+                  <button name="close-circle" onclick="removeProduct(${item.id})">X</button>
                     <img src="images/${item.tag}.jpg" alt="jewelry">
                     <span>${item.name}</span>
                   </div>
@@ -306,13 +337,55 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("Check");
 
         };
+
+
+        
         
     }
-    function removeProduct(tag){
-        console.log("check remove");
-    }
+  
+
+
+
+
+
+
+
     onLoadCartNumbers();
     displayCart();
 
 
 }); 
+
+
+
+
+function renderProducts(products){
+    console.log("renderProducts - products ====>:",products);
+    let productContainer = document.querySelector(".products");
+    let strHTML = ''
+    const productsHTML = products.map((product)=>{
+         return      `<div class="products">
+                <div class="product">
+                <ion-icon name="close-circle" onclick="removeProduct(${product.id})"></ion-icon>
+                    <img src="images/${product.tag}.jpg" alt="jewelry">
+                    <span>${product.name}</span>
+                </div>
+                <div class="price">${product.price}$</div>
+                <div class="quantity">
+                    <ion-icon name="remove-circle-outline" onclick="decreaseQuantity('${product.tag}')"></ion-icon>
+                    <span>${product.inCart}</span>
+                    <ion-icon name="add-circle-outline" onclick="increaseQuantity('${product.tag}')"></ion-icon>
+                </div>  
+                <div class="total">${product.inCart * product.price}</div>
+                </div>`
+    })
+    console.log("productsHTML ====>:",productsHTML);
+    
+    strHTML = productsHTML.join('')
+    productContainer.innerHTML = strHTML
+   }
+
+
+
+
+
