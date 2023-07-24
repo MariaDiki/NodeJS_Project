@@ -217,6 +217,7 @@
   .card-container{
     flex-direction: column;
     justify-content: center;
+    gap: 20px;
     
   }
   .card {
