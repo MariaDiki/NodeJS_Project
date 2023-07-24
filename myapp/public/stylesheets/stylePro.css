@@ -237,13 +237,15 @@
         #f6e27a 55%,
         #cb9b51 78%,
         #462523 100%);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
     padding: 20px;
-    height: 50px;
-    position: relative;
+    height: auto;
     bottom: 0;
     width: 100%;
     color: black;
-    text-align: right;
     font-family: Bookman, URW Bookman L, serif;
 
   }
+
