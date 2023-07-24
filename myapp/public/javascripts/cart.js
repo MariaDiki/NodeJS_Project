@@ -147,8 +147,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function displayCart() {
 
 
-        
-
         var cartButton = document.querySelector(".cartButton");
         var bodymain = document.getElementById("bodymain");
 

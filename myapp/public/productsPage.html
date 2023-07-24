@@ -27,35 +27,39 @@
       usernameButton.innerHTML = username;
       var homeButton = document.getElementById("HomeButton");
       homeButton.href = "productsPage.html?username=" + username;
-      homeButton.addEventListener("click", function() {
-        location.reload(); 
+      homeButton.addEventListener("click", function () {
+        location.reload();
       });
 
     });
 
 
   </script>
-      <script>
-        async function order() {
+  <script>
 
-            console.log("Order button work");
-            fetch('http://localhost:3000/products/order', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+async function showCart() {
 
+  const dataCart = 'Cart Button';
+    fetch(`http://localhost:3000/Cart`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+        body: JSON.stringify(dataCart)
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success HTML:', data);
+    })
+    .catch(error => {
+      console.log('Error Cart Button');
+    });
+}
 
-        }
-  
-
-
-
-    </script>
-      <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-      <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-      <script src="./javascripts/cart.js"></script>
+  </script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="./javascripts/cart.js"></script>
 
 </head>
 
@@ -71,14 +75,16 @@
       </div>
       <div class="col">
         <div class="logo">
-          <div><p>DDG <img src="./images/logo.jpg" alt="" style="height: 50px;">
-                  MDco.
-          </p></div>
+          <div>
+            <p> <img src="./images/logo.jpg" alt="" style="height: 50px;"> MDco.</p>
+          </div>
         </div>
       </div>
       <div class="col text-end">
-        <button class="HomeButton" id="HomeButton" >Home</button>
-        <button class="cartButton" id="cartButton"><ion-icon name="basket"></ion-icon> Cart <span>0</span></a></button>
+        <button class="aboutButton" id="aboutButton">About</button>
+        <button class="HomeButton" id="HomeButton">Home</button>
+        <button class="cartButton" id="cartButton" onclick="showCart()"><ion-icon name="basket"></ion-icon> Cart
+          <span>0</span></a></button>
         <div class="username-container">
           <button class="usernameButton" id="usernameButton"></button>
           <div class="username-dropdown">
@@ -147,8 +153,8 @@
       </div>
     </div>
 
-    
-</main>
+
+  </main>
 
 
   <footer class="footer" id="footer">

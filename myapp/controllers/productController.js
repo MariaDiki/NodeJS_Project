@@ -1,18 +1,17 @@
-const { Queries } = require('../services/queries');
-
+const productService  = require('../services/productService');
+ 
 class productController {
 
     constructor(){
-        this.dbQueries = new Queries()
     }
 
-    async productOrder(req,res){
-        /* console.log('hello2',req.body); */
-        
-        console.log("Check Controller Side");
- 
-    }
-    
+
+    showCart(req,res) {
+        console.log('Button clicked');
+        productService.placeOrder(req);
+        res.sendStatus(200);
+      }
+      
 }
 
-module.exports =  new productController();
+module.exports = new productController();

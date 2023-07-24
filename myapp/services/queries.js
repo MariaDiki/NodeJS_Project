@@ -1,41 +1,39 @@
 const express = require('express');
-const mysql = require('mysql2');
+const mongoose = require('mongoose');
 
-const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: 'maria1995',
-  database: 'nodeshop'
+mongoose.connect('mongodb://localhost/DDG_NodeJS', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch(err => console.error("Could not connect to MongoDB", err));
+
+const userSchema = new mongoose.Schema({
+  name: String,
+  password: String
 });
+
+const User = mongoose.model('Users', userSchema);
 
 const app = express();
 
- 
 class Queries {
-  constructor(){
+  constructor() {
 
   }
 
-   async checkUser(data,callback){
-    const {username,password} = data
-      const query = `SELECT * FROM users WHERE name = ? AND password = ?`;  
-      pool.query(query, [username, password], (error, results) => {
-          if (error) {
-            console.error('Error executing query:', error);
-            callback(error)
-          }else {
-            if (results.length == 0){
-              callback("User not found");
-            } else {
-            callback(results) 
-          }
-        }
-
-      }); 
+  async checkUser(data, callback) {
+    const { username, password } = data;
+    try {
+      const user = await User.find({ name: username, password: password });
+      if (user.length == 0) {
+        callback("User not found");
+      } else {
+        callback(user);
+      }
+    } catch (error) {
+      console.error('Error executing query:', error);
+      callback(error);
+    }
+  }
 }
 
-  
+module.exports = { Queries: Queries }
 
-}
-
-module.exports = {Queries: Queries }

@@ -14,8 +14,8 @@ router.get('/', urlencodedParser, function(req, res, next) {
 
 });
 
-router.post('/order', urlencodedParser, function(req, res, next) {
-  productController.productOrder(req,res);
+router.post('/Cart', urlencodedParser, function(req, res, next) {
+  productController.showCart();
 });
 
 
