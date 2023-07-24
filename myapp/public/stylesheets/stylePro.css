@@ -4,7 +4,7 @@
     color: black;
     font-size: large;
     font-weight: bold;
-    padding-left: 40%;
+    padding-left: 45%;
     font-family: Bookman, URW Bookman L, serif;
   }
 
@@ -43,11 +43,7 @@
     margin-top: 10px;
   }
 
-  .card p {
-
-    font-size: large;
-
-  }
+ 
 
   .logoutButton {
     background-color: rgb(5, 1, 1);
@@ -138,13 +134,17 @@
 
   .card-container {
     display: flex;
-    /*   justify-content: space-evenly;
- */
-
     flex-direction: column;
     align-items: center;
     margin-top: 10px;
+    height: auto;
 
+
+  }
+  .card p {
+   color: black;
+    font-size: large;
+   margin-bottom: 5px;
   }
 
 
@@ -159,24 +159,21 @@
   .card {
     background-color: white;
     padding: 10px;
-    width: calc(33.33% - 20px);
+    width: 30%;
+    height: auto;
     color: #cb9b51;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
+    margin:1%;
 
 
   }
 
-  .card p {
-    color: black;
-  }
-
-
-  .card img {
-    width: 180px;
+   .card img {
+    width: 50%;
     height: auto;
     margin-bottom: 10px;
     display: block;
@@ -189,10 +186,7 @@
     margin-bottom: 5px;
   }
 
-  .card p {
-    margin-bottom: 5px;
-  }
-
+ 
   .order-dropdown select {
     width: 100%;
   }
@@ -219,7 +213,14 @@
     padding: 10px;
     text-decoration: none;
   }
-
+@media(max-width:600px){
+  .card-container{
+    flex-direction: column;
+  }
+  .card {
+    width: 80%;
+  }
+}
 
   .footer {
     background: linear-gradient(to right,
