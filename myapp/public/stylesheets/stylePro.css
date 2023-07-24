@@ -113,6 +113,9 @@
       flex-basis: auto;
       margin-top: 0;
     }
+    .logo {
+      padding-left: 50%;
+    }
 
     .logoutButton {
       flex-basis: auto;
