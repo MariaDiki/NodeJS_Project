@@ -216,9 +216,12 @@
 @media(max-width:600px){
   .card-container{
     flex-direction: column;
+    justify-content: center;
+    
   }
   .card {
     width: 80%;
+    margin:0 auto;
   }
 }
 
