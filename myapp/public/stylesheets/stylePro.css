@@ -13,7 +13,6 @@
   .username-container {
     position: relative;
     display: inline-block;
-    margin-right: 20px;
     flex-basis: auto;
   }
 
