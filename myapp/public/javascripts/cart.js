@@ -154,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
             bodymain.innerHTML = "";
             bodymain.innerHTML = `
             <style>
+
             .products-container {
                 max-width: 750px;
                 height: auto;
