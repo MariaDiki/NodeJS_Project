@@ -1,76 +1,50 @@
-
-var gProducts = [
-    {
-        id: 0,
-        name: 'Dimonds Ring',
-        tag: 'Dring',
-        price: 950,
-        inCart: 0
-    },
-    {
-        id: 1,
-        name: 'Golden bracelat',
-        tag: 'bracelat',
-        price: 130,
-        inCart: 0
-    },
-    {
-        id: 2,
-        name: 'Golden Earrings',
-        tag: 'short_earings',
-        price: 999,
-        inCart: 0
-    },
-    {
-        id: 3,
-        name: 'Golden Rings',
-        tag: 'weddingR',
-        price: 150,
-        inCart: 0
-    },
-    {
-        id: 4,
-        name: 'Golden Necklace',
-        tag: 'mandarinN',
-        price: 250,
-        inCart: 0
-    },
-    {
-        id: 5,
-        name: 'Long Golden Earrings',
-        tag: 'long_earings',
-        price: 1450,
-        inCart: 0
-    }
-];
-
-
-
-
-function removeProduct(id){
-    console.log("id ====>:",id);
-    console.log("gProducts ====>:",gProducts);
-
-        const wantedProduct = gProducts.filter(product => product.id != id)
-    
-    console.log("wantedProduct ====>:",wantedProduct);
-    gProducts = wantedProduct
-    renderProducts(gProducts)
-}
-
-
 document.addEventListener('DOMContentLoaded', function () {
     var carts = document.querySelectorAll('.add-cart');
     console.log(carts);
 
-    
-
-    
+    let products = [
+        {
+            name: 'Dimonds Ring',
+            tag: 'Dring',
+            price: 950,
+            inCart: 0
+        },
+        {
+            name: 'Golden bracelat',
+            tag: 'bracelat',
+            price: 130,
+            inCart: 0
+        },
+        {
+            name: 'Golden Earrings',
+            tag: 'short_earings',
+            price: 999,
+            inCart: 0
+        },
+        {
+            name: 'Golden Rings',
+            tag: 'weddingR',
+            price: 150,
+            inCart: 0
+        },
+        {
+            name: 'Golden Necklace',
+            tag: 'mandarinN',
+            price: 250,
+            inCart: 0
+        },
+        {
+            name: 'Long Golden Earrings',
+            tag: 'long_earings',
+            price: 1450,
+            inCart: 0
+        }
+    ];
 
     for (let i = 0; i < carts.length; i++) {
         carts[i].addEventListener('click', () => {
-            cartNumbers(gProducts[i]);
-            totalCost(gProducts[i]);
+            cartNumbers(products[i]);
+            totalCost(products[i]);
 
 
         })
@@ -97,12 +71,12 @@ document.addEventListener('DOMContentLoaded', function () {
             document.querySelector('.cartButton span').textContent = 1;
         }
         setItems(product);
+        totalCost(product);
     }
 
     function setItems(product) {
         let cartItems = localStorage.getItem('productsInCart');
         cartItems = JSON.parse(cartItems);
-        gProducts  = cartItems
         console.log("My cart items are:", cartItems);
 
         if (cartItems != null) {
@@ -121,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         localStorage.setItem("productsInCart", JSON.stringify(cartItems));
+        return cartItems;
     }
 
     function totalCost(product) {
@@ -141,19 +116,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     }
- 
-
-
+    function order() {
+        console.log("order Button")
+    }
+    document.addEventListener("click", function (event) {
+        if (event.target && event.target.id === "OrderButton") {
+            order();
+        }
+    });
     function displayCart() {
-
 
         var cartButton = document.querySelector(".cartButton");
         var bodymain = document.getElementById("bodymain");
-
         cartButton.onclick = function () {
             bodymain.innerHTML = "";
             bodymain.innerHTML = `
             <style>
+            .bodymain{
+                height: 80vh;
+                width:auto;
+            }
 
             .products-container {
                 max-width: 750px;
@@ -247,7 +229,6 @@ document.addEventListener('DOMContentLoaded', function () {
             .basketTotal{
                 width: 10%;
             }
-
             .OrderButton {
     
                 background-color:#cb9b51;
@@ -257,19 +238,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 margin-top: 10px;
                 position: relative;
                 display: inline-block;
-
               }
               .Order-Container {
                 display: flex;
                 justify-content: center;
                 align-items: center;
               }
+
             
             </style>
 
           `;
-
-
 
             bodymain.innerHTML += `
             <div class="products-container">
@@ -281,45 +260,41 @@ document.addEventListener('DOMContentLoaded', function () {
               </div>
               <div class="products"></div>
             </div>
-                <div class="Order-Container">
-                <button class="OrderButton" id="OrderButton" onclick="order()">Place Order</button>
-            </div>
-           
-   
-            `;
+            
+            <div class="Order-Container">
+            <button class="OrderButton" id="OrderButton" onclick="order()">Place Order</button>
+        </div>
+          `;
 
 
             let cartItems = localStorage.getItem("productsInCart");
             cartItems = JSON.parse(cartItems);
-           // gProducts = cartItems
             let cartCost = localStorage.getItem('totalCost');
             let productContainer = document.querySelector(".products");
 
 
-            console.log('cartItems===>',cartItems);
+            console.log(cartItems);
 
             if (cartItems && productContainer) {
                 productContainer.innerHTML = '';
-                Object.values(cartItems).map(item => {
+                Object.values(cartItems).map((item,index) => {
                     productContainer.innerHTML += `
                 <div class="products">
                   <div class="product">
-                  <button name="close-circle" onclick="removeProduct(${item.id})">X</button>
+                    <ion-button (click)="removeFromCart()" data-index="${index}"><ion-icon name="close-circle" id="close-circle" ></ion-icon></ion-button>
                     <img src="images/${item.tag}.jpg" alt="jewelry">
                     <span>${item.name}</span>
                   </div>
                   <div class="price">${item.price}$</div>
                   <div class="quantity">
-                    <ion-icon name="remove-circle-outline" onclick="decreaseQuantity('${item.tag}')"></ion-icon>
-                    <span>${item.inCart}</span>
-                    <ion-icon name="add-circle-outline" onclick="increaseQuantity('${item.tag}')"></ion-icon>
+                    <ion-icon name="remove-circle-outline" (click)="removeQuantityFromCart(${index})"></ion-icon>
+                    <span id="quantity-${index}">${item.inCart}</span>
+                    <ion-icon name="add-circle-outline" (click)="addQuantityToCart(${index})"></ion-icon>
                   </div>  
                   <div class="total">${item.inCart * item.price}</div>
                 </div>
               `;
                 });
-                console.log("inside function");
-
                 productContainer.innerHTML += `
               <div class="basketTotalContainer">
                 <h4 class="basketTotalTitle">
@@ -331,60 +306,171 @@ document.addEventListener('DOMContentLoaded', function () {
               </div>
             `;
 
-
             }
-            console.log("Check");
+
 
         };
-
-
-        
-        
     }
-  
-
-
-
-
-
 
 
     onLoadCartNumbers();
     displayCart();
 
+});
 
-}); 
+function updateCartNumbers(change) {
+    let productNumbers = localStorage.getItem('cartNumbers');
+    let newProductNumber = 1;
+    productNumbers = parseInt(productNumbers) || 0;
+
+    productNumbers += change;
+
+    localStorage.setItem('cartNumbers', productNumbers);
+    document.querySelector('.cartButton span').textContent = productNumbers;
+    document.querySelector('.quantity span').textContent = newProductNumber;
+}
+/* function updateTotalCost(price, quantity) {
+    let cartCost = localStorage.getItem('totalCost');
+    cartCost = parseFloat(cartCost) || 0;
+
+    const productPrice = parseFloat(price);
+    const productQuantity = parseFloat(quantity);
+
+    cartCost += productPrice * productQuantity;
+
+    localStorage.setItem('totalCost', cartCost.toFixed(2));
+
+    document.querySelector('.cartTotal span').textContent = cartCost.toFixed(2);
+
+} */
+
+/* ----------------ION-ICON functions------------------- */
+
+function removeFromCart(productDiv, quantity) {
+    let updatedCartItems = localStorage.getItem('productsInCart');
+    updatedCartItems = JSON.parse(updatedCartItems);
+   
+    let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
+    if(updatedCartItems[targetTag]){
+        if(updatedCartItems[targetTag].inCart > quantity){
+            updatedCartItems[targetTag].inCart-=quantity;
+            } else {
+                    delete updatedCartItems[targetTag];
+            }
+    }
+
+    localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
+    updateCartNumbers(-quantity);
+/*     const price = parseFloat(productDiv.querySelector('.price').textContent); */
+ /*    updateTotalCost(price, quantity); */
+
+
+}
+function removeUnitOFProduct(productDiv) {
+    console.log("inside remove quantity function")
+    let updatedCartItems = localStorage.getItem('productsInCart');
+    updatedCartItems = JSON.parse(updatedCartItems);
+  
+    let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
+    if (updatedCartItems[targetTag]) {
+      updatedCartItems[targetTag].inCart -= 1;
+    }
+  
+    localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
+
+    updateCartNumbers(-1);
+ 
+    const quantityElement = productDiv.querySelector('.quantity span');
+    quantityElement.textContent = updatedCartItems[targetTag].inCart;
+  }
+
+
+function addQuantityToCart(productDiv) {
+    console.log("inside add quantity function")
+    let updatedCartItems = localStorage.getItem('productsInCart');
+    updatedCartItems = JSON.parse(updatedCartItems);
+  
+    let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
+    if (updatedCartItems[targetTag]) {
+      updatedCartItems[targetTag].inCart += 1;
+    }
+  
+    localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
+
+    updateCartNumbers(1);
+ 
+    const quantityElement = productDiv.querySelector('.quantity span');
+    quantityElement.textContent = updatedCartItems[targetTag].inCart;
+  }
 
 
 
+/* ----------------Event Listeners------------------- */
+document.addEventListener("click", function (event) {
+    if (event.target && event.target.id === "close-circle") {
+        let removeButton = event.target;
+        let productDiv = removeButton.closest(".products");
+        let quantity = parseInt(productDiv.querySelector('.quantity').textContent);
+        console.log(productDiv);
+        console.log(quantity);
+        removeFromCart(productDiv,quantity);
+     }
 
-function renderProducts(products){
-    console.log("renderProducts - products ====>:",products);
-    let productContainer = document.querySelector(".products");
-    let strHTML = ''
-    const productsHTML = products.map((product)=>{
-         return      `<div class="products">
-                <div class="product">
-                <ion-icon name="close-circle" onclick="removeProduct(${product.id})"></ion-icon>
-                    <img src="images/${product.tag}.jpg" alt="jewelry">
-                    <span>${product.name}</span>
-                </div>
-                <div class="price">${product.price}$</div>
-                <div class="quantity">
-                    <ion-icon name="remove-circle-outline" onclick="decreaseQuantity('${product.tag}')"></ion-icon>
-                    <span>${product.inCart}</span>
-                    <ion-icon name="add-circle-outline" onclick="increaseQuantity('${product.tag}')"></ion-icon>
-                </div>  
-                <div class="total">${product.inCart * product.price}</div>
-                </div>`
-    })
-    console.log("productsHTML ====>:",productsHTML);
+     if (event.target && event.target.name == "remove-circle-outline") {
+        console.log("remove circle clicked");
+        let removeUnitButton = event.target;
+        let productDiv = removeUnitButton.closest(".products");
+        console.log(productDiv);
+        const quantityElement = productDiv.querySelector('.quantity span');
+        console.log(quantityElement);
+        let quantity = parseInt(quantityElement.textContent);
+        console.log(quantity);
+        
+        if(quantity > 1){
+            removeUnitOFProduct(productDiv);
+        }
+        else{
+            removeFromCart(productDiv,1);
+        }
+      }
     
-    strHTML = productsHTML.join('')
-    productContainer.innerHTML = strHTML
-   }
 
+      if (event.target && event.target.name == "add-circle-outline") {
+        console.log("add circle clicked");
+        let addUnitButton = event.target;
+        let productDiv = addUnitButton.closest(".products");
+        const quantityElement = productDiv.querySelector('.quantity span');
+        console.log(quantityElement);
+        addQuantityToCart(productDiv);
 
+      }
+    
+});
 
-
+/*     document.querySelectorAll('ion-icon[name="remove-circle-outline"]').forEach((icon) => {
+    icon.addEventListener('click', () => {
+      
+      const index = parseInt(icon.getAttribute('data-index'));
+      const item = Object.values(cartItems)[index];
+      if (item.inCart > 1) {
+        item.inCart--;
+        updateCartQuantity(index, item.inCart);
+      } else {
+        removeProductFromCart(index);
+      }
+      updateCartNumbers(-1);
+      updateTotalCost(-item.price);
+    });
+  });  
+  function updateCartQuantity(index, quantity) {
+    const quantityElements = document.querySelectorAll('.quantity span');
+    quantityElements[index].textContent = quantity;
+  }
+  
+  function removeProductFromCart(index) {
+    const productElements = document.querySelectorAll('.products');
+    productElements[index].remove();
+  }
+  
+}); */
 
