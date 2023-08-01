@@ -318,17 +318,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-function updateCartNumbers(change) {
-    let productNumbers = localStorage.getItem('cartNumbers');
-    let newProductNumber = 1;
-    productNumbers = parseInt(productNumbers) || 0;
 
-    productNumbers += change;
-
-    localStorage.setItem('cartNumbers', productNumbers);
-    document.querySelector('.cartButton span').textContent = productNumbers;
-    document.querySelector('.quantity span').textContent = newProductNumber;
-}
 /* function updateTotalCost(price, quantity) {
     let cartCost = localStorage.getItem('totalCost');
     cartCost = parseFloat(cartCost) || 0;
@@ -346,6 +336,18 @@ function updateCartNumbers(change) {
 
 /* ----------------ION-ICON functions------------------- */
 
+function updateCartNumbers(change) {
+    let productNumbers = localStorage.getItem('cartNumbers');
+
+    productNumbers = parseInt(productNumbers) || 0;
+
+    productNumbers += change;
+
+    localStorage.setItem('cartNumbers', productNumbers);
+    document.querySelector('.cartButton span').textContent = productNumbers;
+   
+}
+
 function removeFromCart(productDiv, quantity) {
     let updatedCartItems = localStorage.getItem('productsInCart');
     updatedCartItems = JSON.parse(updatedCartItems);
@@ -361,6 +363,7 @@ function removeFromCart(productDiv, quantity) {
 
     localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
     updateCartNumbers(-quantity);
+    productDiv.remove();
 /*     const price = parseFloat(productDiv.querySelector('.price').textContent); */
  /*    updateTotalCost(price, quantity); */
 
@@ -447,30 +450,5 @@ document.addEventListener("click", function (event) {
     
 });
 
-/*     document.querySelectorAll('ion-icon[name="remove-circle-outline"]').forEach((icon) => {
-    icon.addEventListener('click', () => {
-      
-      const index = parseInt(icon.getAttribute('data-index'));
-      const item = Object.values(cartItems)[index];
-      if (item.inCart > 1) {
-        item.inCart--;
-        updateCartQuantity(index, item.inCart);
-      } else {
-        removeProductFromCart(index);
-      }
-      updateCartNumbers(-1);
-      updateTotalCost(-item.price);
-    });
-  });  
-  function updateCartQuantity(index, quantity) {
-    const quantityElements = document.querySelectorAll('.quantity span');
-    quantityElements[index].textContent = quantity;
-  }
-  
-  function removeProductFromCart(index) {
-    const productElements = document.querySelectorAll('.products');
-    productElements[index].remove();
-  }
-  
-}); */
+
 
