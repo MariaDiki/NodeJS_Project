@@ -71,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function () {
             document.querySelector('.cartButton span').textContent = 1;
         }
         setItems(product);
-        totalCost(product);
     }
 
     function setItems(product) {
@@ -107,12 +106,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (cartCost != null) {
             cartCost = parseInt(cartCost);
+            console.log("after parseInt:", typeof cartCost);
+            console.log("after parseInt product.price:", typeof product.price);
+
             localStorage.setItem("totalCost", cartCost + product.price);
 
         } else {
             localStorage.setItem("totalCost", product.price);
 
         }
+        console.log(typeof cartCost);
+
 
 
     }
@@ -277,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (cartItems && productContainer) {
                 productContainer.innerHTML = '';
-                Object.values(cartItems).map((item,index) => {
+                Object.values(cartItems).map((item, index) => {
                     productContainer.innerHTML += `
                 <div class="products">
                   <div class="product">
@@ -311,144 +315,173 @@ document.addEventListener('DOMContentLoaded', function () {
 
         };
     }
+        /* ----------------ION-ICON functions------------------- */
+
+        function updateCartNumbers(change) {
+            let productNumbers = localStorage.getItem('cartNumbers');
+    
+            productNumbers = parseInt(productNumbers) || 0;
+    
+            productNumbers += change;
+    
+            localStorage.setItem('cartNumbers', productNumbers);
+            document.querySelector('.cartButton span').textContent = productNumbers;
+    
+        }
+    
+        function removeFromCart(productDiv, quantity) {
+            let updatedCartItems = localStorage.getItem('productsInCart');
+            updatedCartItems = JSON.parse(updatedCartItems);
+    
+            let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
+            if (updatedCartItems[targetTag]) {
+                if (updatedCartItems[targetTag].inCart > quantity) {
+                    updatedCartItems[targetTag].inCart -= quantity;
+                } else {
+                    delete updatedCartItems[targetTag];
+                }
+            }
+    
+            localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
+            updateCartNumbers(-quantity);
+            productDiv.remove();
+    
+        updateTotalCost();
+    
+        }
+        function removeUnitOFProduct(productDiv) {
+            console.log("inside remove quantity function")
+            let updatedCartItems = localStorage.getItem('productsInCart');
+            updatedCartItems = JSON.parse(updatedCartItems);
+    
+            let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
+            if (updatedCartItems[targetTag]) {
+                updatedCartItems[targetTag].inCart -= 1;
+            }
+    
+            localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
+    
+            updateCartNumbers(-1);
+    
+            const quantityElement = productDiv.querySelector('.quantity span');
+            quantityElement.textContent = updatedCartItems[targetTag].inCart;
+            updateTotalProduct(productDiv);
+            updateTotalCost();
+        }
+    
+    
+        function addQuantityToCart(productDiv) {
+            console.log("inside add quantity function")
+            let updatedCartItems = localStorage.getItem('productsInCart');
+            updatedCartItems = JSON.parse(updatedCartItems);
+    
+            let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
+            if (updatedCartItems[targetTag]) {
+                updatedCartItems[targetTag].inCart += 1;
+            }
+    
+            localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
+    
+            updateCartNumbers(1);
+    
+            const quantityElement = productDiv.querySelector('.quantity span');
+            quantityElement.textContent = updatedCartItems[targetTag].inCart;
+            updateTotalProduct(productDiv);
+            updateTotalCost();
+    
+    
+        }
+    
+        function updateTotalProduct(productDiv) {
+            let updatedCartItems = localStorage.getItem('productsInCart');
+    
+            updatedCartItems = JSON.parse(updatedCartItems);
+    
+            let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
+            const item = updatedCartItems[targetTag];
+    
+            const totalElement = productDiv.querySelector('.total');
+            totalElement.textContent = item.inCart * item.price;
+            updateTotalCost();
+        }
+        function updateTotalCost() {
+            let updatedCartItems = localStorage.getItem('productsInCart');
+            let oldTotal = localStorage.getItem('totalCost');
+            updatedCartItems = JSON.parse(updatedCartItems);
+          
+            let totalCost = 0;
+          
+            for (let item in updatedCartItems) {
+              totalCost += updatedCartItems[item].inCart * updatedCartItems[item].price;
+            }
+          
+            const basketTotal = document.querySelector('.basketTotal');
+            basketTotal.textContent = `$${totalCost}`;
+          
+            console.log("this is the oldTotal type:", typeof oldTotal);
+            console.log("this is the basketTotal type:", typeof basketTotal);
+          
+            let updatedTotal = JSON.stringify(totalCost); // stringify the totalCost variable
+          
+            console.log("this is the updatedTotal type:", typeof updatedTotal);
+            localStorage.setItem('totalCost', updatedTotal);
+            console.log("totalCost", totalCost);
+          }
+          
+    
+        /* ----------------Event Listeners------------------- */
+        document.addEventListener("click", function (event) {
+            if (event.target && event.target.id === "close-circle") {
+                let removeButton = event.target;
+                let productDiv = removeButton.closest(".products");
+                let quantity = parseInt(productDiv.querySelector('.quantity').textContent);
+                console.log(productDiv);
+                console.log(quantity);
+                removeFromCart(productDiv, quantity);
+            }
+    
+            if (event.target && event.target.name == "remove-circle-outline") {
+                console.log("remove circle clicked");
+                let removeUnitButton = event.target;
+                let productDiv = removeUnitButton.closest(".products");
+                console.log(productDiv);
+                const quantityElement = productDiv.querySelector('.quantity span');
+                console.log(quantityElement);
+                let quantity = parseInt(quantityElement.textContent);
+                console.log(quantity);
+    
+                if (quantity > 1) {
+                    removeUnitOFProduct(productDiv);
+                }
+                else {
+                    removeFromCart(productDiv, 1);
+                }
+            }
+    
+    
+            if (event.target && event.target.name == "add-circle-outline") {
+                console.log("add circle clicked");
+                let addUnitButton = event.target;
+                let productDiv = addUnitButton.closest(".products");
+                const quantityElement = productDiv.querySelector('.quantity span');
+                console.log(quantityElement);
+                addQuantityToCart(productDiv);
+    
+            }
+    
+        });
 
 
     onLoadCartNumbers();
     displayCart();
 
+
+
+
 });
 
 
-/* function updateTotalCost(price, quantity) {
-    let cartCost = localStorage.getItem('totalCost');
-    cartCost = parseFloat(cartCost) || 0;
 
-    const productPrice = parseFloat(price);
-    const productQuantity = parseFloat(quantity);
-
-    cartCost += productPrice * productQuantity;
-
-    localStorage.setItem('totalCost', cartCost.toFixed(2));
-
-    document.querySelector('.cartTotal span').textContent = cartCost.toFixed(2);
-
-} */
-
-/* ----------------ION-ICON functions------------------- */
-
-function updateCartNumbers(change) {
-    let productNumbers = localStorage.getItem('cartNumbers');
-
-    productNumbers = parseInt(productNumbers) || 0;
-
-    productNumbers += change;
-
-    localStorage.setItem('cartNumbers', productNumbers);
-    document.querySelector('.cartButton span').textContent = productNumbers;
-   
-}
-
-function removeFromCart(productDiv, quantity) {
-    let updatedCartItems = localStorage.getItem('productsInCart');
-    updatedCartItems = JSON.parse(updatedCartItems);
-   
-    let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
-    if(updatedCartItems[targetTag]){
-        if(updatedCartItems[targetTag].inCart > quantity){
-            updatedCartItems[targetTag].inCart-=quantity;
-            } else {
-                    delete updatedCartItems[targetTag];
-            }
-    }
-
-    localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
-    updateCartNumbers(-quantity);
-    productDiv.remove();
-/*     const price = parseFloat(productDiv.querySelector('.price').textContent); */
- /*    updateTotalCost(price, quantity); */
-
-
-}
-function removeUnitOFProduct(productDiv) {
-    console.log("inside remove quantity function")
-    let updatedCartItems = localStorage.getItem('productsInCart');
-    updatedCartItems = JSON.parse(updatedCartItems);
-  
-    let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
-    if (updatedCartItems[targetTag]) {
-      updatedCartItems[targetTag].inCart -= 1;
-    }
-  
-    localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
-
-    updateCartNumbers(-1);
- 
-    const quantityElement = productDiv.querySelector('.quantity span');
-    quantityElement.textContent = updatedCartItems[targetTag].inCart;
-  }
-
-
-function addQuantityToCart(productDiv) {
-    console.log("inside add quantity function")
-    let updatedCartItems = localStorage.getItem('productsInCart');
-    updatedCartItems = JSON.parse(updatedCartItems);
-  
-    let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
-    if (updatedCartItems[targetTag]) {
-      updatedCartItems[targetTag].inCart += 1;
-    }
-  
-    localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
-
-    updateCartNumbers(1);
- 
-    const quantityElement = productDiv.querySelector('.quantity span');
-    quantityElement.textContent = updatedCartItems[targetTag].inCart;
-  }
-
-
-
-/* ----------------Event Listeners------------------- */
-document.addEventListener("click", function (event) {
-    if (event.target && event.target.id === "close-circle") {
-        let removeButton = event.target;
-        let productDiv = removeButton.closest(".products");
-        let quantity = parseInt(productDiv.querySelector('.quantity').textContent);
-        console.log(productDiv);
-        console.log(quantity);
-        removeFromCart(productDiv,quantity);
-     }
-
-     if (event.target && event.target.name == "remove-circle-outline") {
-        console.log("remove circle clicked");
-        let removeUnitButton = event.target;
-        let productDiv = removeUnitButton.closest(".products");
-        console.log(productDiv);
-        const quantityElement = productDiv.querySelector('.quantity span');
-        console.log(quantityElement);
-        let quantity = parseInt(quantityElement.textContent);
-        console.log(quantity);
-        
-        if(quantity > 1){
-            removeUnitOFProduct(productDiv);
-        }
-        else{
-            removeFromCart(productDiv,1);
-        }
-      }
-    
-
-      if (event.target && event.target.name == "add-circle-outline") {
-        console.log("add circle clicked");
-        let addUnitButton = event.target;
-        let productDiv = addUnitButton.closest(".products");
-        const quantityElement = productDiv.querySelector('.quantity span');
-        console.log(quantityElement);
-        addQuantityToCart(productDiv);
-
-      }
-    
-});
 
 
 
