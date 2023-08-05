@@ -112,7 +112,40 @@ class productService {
         font-family: arial;
       
       }
- 
+      @media(max-width:600px){
+        .card-container{
+          flex-direction: column;
+          justify-content: center;
+        
+        }
+        .card-about {
+          width: 80%;
+          margin:0 auto;
+          margin-bottom: 10px;
+        }
+      }
+      
+        .footer {
+          background: linear-gradient(to right,
+              #462523 0,
+              #cb9b51 22%,
+              #f6e27a 45%,
+              #f6f2c0 50%,
+              #f6e27a 55%,
+              #cb9b51 78%,
+              #462523 100%);
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: end;
+          padding: 20px;
+          height: auto;
+          bottom: 0;
+          width: 100%;
+          color: black;
+          font-family: Bookman, URW Bookman L, serif;
+      
+        }
+      
       
         </style>
 

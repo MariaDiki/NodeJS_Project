@@ -18,10 +18,6 @@ router.post('/cart', urlencodedParser, function(req, res, next) {
   productController.showCart(req,res);
 });
 
-/* router.get('/about', urlencodedParser, function(req, res, next) {
-  console.log("About Button");
-  res.json({ message: 'About Button clicked' });
-}); */
 
 router.post('/about', urlencodedParser, function(req, res, next) {
   productController.showAbout(req,res);
