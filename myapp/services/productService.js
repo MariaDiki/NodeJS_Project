@@ -46,7 +46,7 @@ class productService {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 10px;
+        margin-top: 50px;
         height: auto;
 
       }

@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
             inCart: 0
         }
     ];
-
+ /*------------------------- Loading Cart Page ----------------------------- */
     for (let i = 0; i < carts.length; i++) {
         carts[i].addEventListener('click', () => {
             cartNumbers(products[i]);
@@ -120,9 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     }
-    function order() {
-        console.log("order Button")
-    }
+
     document.addEventListener("click", function (event) {
         if (event.target && event.target.id === "OrderButton") {
             order();
@@ -470,11 +468,127 @@ document.addEventListener('DOMContentLoaded', function () {
             }
     
         });
+        function order() {
+            console.log("order Button");
+            var orderButton = document.querySelector(".orderButton");
+            var bodymain = document.getElementById("bodymain");
+            
+                bodymain.innerHTML = "";
+             
+                bodymain.innerHTML = `      
+                <div id="card-container">
+                <div class="card-order">
+               
+                  <h1>Thank You for your order !</h1>
+                  <h4 class="h4">a member of our staff willl contact you by the phone number provided to seal the order</h4>
+                  <pre class="textBox" id="textBox"> 
+                    please insure that you provide your current phone number:
+                  </pre>
+                  <div class="phoneBox" id="phoneBox">
+                  <input type="text" placeholder="Phone:" id="phone" name="phone" maxlength="10" required>
+                  </div>
+                  <button type="submit" class="btn" onsubmit="placeOrder()">Submit</button>
+                </div>
+                </div>
+                <style>
+                .bodymain{
+                    height: 80vh;
+                    width:auto;
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-start;
+
+                }
+
+                .card-order {
+                    background-color: white;
+                    width: 85%;
+                    height: auto;
+                    color: #cb9b51;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                    word-wrap:break-word;
+                    overflow-wrap:break-all;
+                    padding: 10px;
+                    margin-top: 150px ;
+                  }
+
+                  .card-container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    height: auto;
+                    margin-top: 150px ;
+                            
+                    
+            
+                  }
+                  .card-order .h4 {
+                    color: black;
+                  }
+            
+                
+                .textBox {
+                  color: black;
+                  text-align: start; 
+                  white-space: pre-wrap;
+                  margin: 0;
+                  font-family: arial;
+                
+                }
+                .phoneBox {
+                    width: auto;
+                    overflow: hidden;
+                    color: #cb9b51;
+                    font-size: 20px;
+                    padding: 8px 0;
+                    margin: 8px 0;
+                    border-bottom: 1px solid#cb9b51;
+                }
+                
+                .phoneBox input {
+                    border: none;
+                    outline: none;
+                    background: none;
+                    color: #cb9b51;
+                    font-size: 18px;
+                    float: left;
+                    width: auto;
+                    margin: 0 10px;
+                }
+                .btn {
+                    width: auto;
+                    background: black;
+                    border: 2px solid #cb9b51;
+                    color:#cb9b51;
+                    padding: 5px;
+                    font-size: 18px;
+                    cursor: pointer;
+                    margin: 12px 0;
+                }
+                .btn:hover {
+                    background-color: #cb9b51;
+                }
+
+
+                
+                  </style>
+          
+          
+                }
+              `;
+    
+        
+    }
 
 
     onLoadCartNumbers();
     displayCart();
 
+ /*------------------------- Loading Order Page ----------------------------- */
 
 
 
