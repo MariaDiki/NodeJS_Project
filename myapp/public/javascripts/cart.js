@@ -140,6 +140,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 height: 80vh;
                 width:auto;
             }
+            .main {
+
+                background: rgb(0, 0, 0);
+                width: 100%;
+                height: 100%;
+                margin: 0 auto;
+                flex-grow: 1;
+            
+              }
 
             .products-container {
                 max-width: 750px;
