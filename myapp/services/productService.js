@@ -115,6 +115,7 @@ class productService {
       }
       @media(max-width:600px){
         .card-container{
+          flex: 1;
           flex-direction: column;
           justify-content: center;
         
@@ -144,6 +145,7 @@ class productService {
           width: 100%;
           color: black;
           font-family: Bookman, URW Bookman L, serif;
+          margin-top:20px;
       
         }
       

@@ -262,6 +262,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   width: 80%;
                   margin:0 auto;
                   margin-bottom: 10px;
+                  flex:1;
                 }
               }
               .products-header {
@@ -272,7 +273,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 border-bottom: 4px solid #462523;
                 margin: 0 auto;
                 font-weight: bold;
-                font-size: 14px;
+                font-size: 12px;
             }
               
                 .footer {
@@ -293,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   width: 100%;
                   color: black;
                   font-family: Bookman, URW Bookman L, serif;
-              
+                    margin-top:20px;
               
                 }
 
@@ -635,6 +636,7 @@ function orderFunction() {
     }
     @media(max-width:600px){
         .card-container{
+            flex:1;
           flex-direction: column;
           justify-content: center;
         
@@ -664,7 +666,7 @@ function orderFunction() {
           width: 100%;
           color: black;
           font-family: Bookman, URW Bookman L, serif;
-      
+            margin-top:20px
         }
       
 
