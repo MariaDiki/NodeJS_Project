@@ -9,37 +9,37 @@ class productService {
 
   }
 
-   newOrder(req, res) {
-  
+  newOrder(req, res) {
 
-      console.log('Order placed');
-      const orderSchema = new mongoose.Schema({
-        username: String,
-        phone: String,
-        products: Array,
-        totalCost: Number
-      });
-  
-      const OrderModel = this.orderConnection.model('orders', orderSchema);
-  
-      OrderModel.create({
-        username: req.body.username,
-        phone: req.body.phone,
-        products: req.body.products,
-        totalCost: req.body.totalCost
+
+    console.log('Order placed');
+    const orderSchema = new mongoose.Schema({
+      username: String,
+      phone: String,
+      products: Array,
+      totalCost: Number
+    });
+
+    const OrderModel = this.orderConnection.model('orders', orderSchema);
+
+    OrderModel.create({
+      username: req.body.username,
+      phone: req.body.phone,
+      products: req.body.products,
+      totalCost: req.body.totalCost
+    })
+      .then(() => {
+        console.log('Order inserted successfully');
       })
-        .then(() => {
-          console.log('Order inserted successfully');
-        })
-        .catch((err) => {
-          console.log('Error inserting order:', err);
-         
-        });
-    }
-  
+      .catch((err) => {
+        console.log('Error inserting order:', err);
+
+      });
+  }
 
 
-  
+
+
 
   aboutText(req) {
     // Generate HTML string
@@ -71,39 +71,28 @@ class productService {
       </div>
       </div>
       <style>
-      .bodymain{
-        height: 85vh;
-        width:auto;
-        justify-content:center;
-        display:flex;
-    }
-    .main {
-
-        background: rgb(0, 0, 0);
-        width: 100%;
-        height: 100%;
-        margin: 0 auto;
-        flex-grow: 1;
-  
+      .footer{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: end;
+        padding: 20px;
+        bottom: 0;
+        position:absolute;
       }
-
- 
       
       .card-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        height:auto;
-        margin-top: 50px ;
-        color: black;
-        
-        width: fit-content;
+        margin-top: 10px;
+        height: auto;
 
       }
       
       
       .card-about {
         background-color: white;
+        width: 85%;
         height: auto;
         color: #cb9b51;
         display: flex;
@@ -127,23 +116,7 @@ class productService {
         font-family: arial;
       
       }
-      .footer {
-        bottom: 0;
-      }
-      @media(max-width:600px){
-        .card-container{
-          flex: 1;
-          flex-direction: column;
-          justify-content: center;
-        
-        }
-        .card-about {
-          width: 80%;
-          margin:0 auto;
-          margin-bottom: 10px;
-        }
-      }
-         
+ 
       
         </style>
 
