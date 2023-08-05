@@ -57,9 +57,9 @@
       })
         .then(response => response.text())
         .then(html => {
-          const cardContainer = document.getElementById('card-container');
-          cardContainer.innerHTML = "";
-          cardContainer.innerHTML += html;
+          const bodymain = document.getElementById("bodymain");
+          bodymain.innerHTML = "";
+          bodymain.innerHTML += html;
   
           console.log("data passed");
         })

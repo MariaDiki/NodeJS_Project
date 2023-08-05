@@ -639,6 +639,8 @@ function orderFunction() {
             flex:1;
           flex-direction: column;
           justify-content: center;
+          width: fit-content;
+
         
         }
         .card-order {

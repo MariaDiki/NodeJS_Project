@@ -45,7 +45,7 @@ class productService {
     // Generate HTML string
 
     const html = `
-      <div id="card-container">
+      <div class="card-container" id="card-container">
       <div class="card-about">
      
         <h1>Welcome to my NodeJs Project!</h1>
@@ -71,25 +71,39 @@ class productService {
       </div>
       </div>
       <style>
-      .footer{
-        padding: 20px;
-       position: absolute;
-        bottom: 0;
+      .bodymain{
+        height: 85vh;
+        width:auto;
+        justify-content:center;
+        display:flex;
+    }
+    .main {
+
+        background: rgb(0, 0, 0);
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        flex-grow: 1;
+  
       }
+
+ 
       
       .card-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 50px;
-        height: auto;
+        height:auto;
+        margin-top: 50px ;
+        color: black;
+        
+        width: fit-content;
 
       }
       
       
       .card-about {
         background-color: white;
-        width: 85%;
         height: auto;
         color: #cb9b51;
         display: flex;
@@ -113,6 +127,9 @@ class productService {
         font-family: arial;
       
       }
+      .footer {
+        bottom: 0;
+      }
       @media(max-width:600px){
         .card-container{
           flex: 1;
@@ -126,29 +143,7 @@ class productService {
           margin-bottom: 10px;
         }
       }
-      
-        .footer {
-          background: linear-gradient(to right,
-              #462523 0,
-              #cb9b51 22%,
-              #f6e27a 45%,
-              #f6f2c0 50%,
-              #f6e27a 55%,
-              #cb9b51 78%,
-              #462523 100%);
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: end;
-          padding: 20px;
-          height: auto;
-          bottom: 0;
-          width: 100%;
-          color: black;
-          font-family: Bookman, URW Bookman L, serif;
-          margin-top:20px;
-      
-        }
-      
+         
       
         </style>
 
