@@ -61,8 +61,9 @@ class productService {
             3.2.Home button -> redirect back to the initial Product Page.
             3.3.Cart Button -> changes the main body of the html file to the cart page.
             3.4.Username Button -> has a drop-down of "Logout" button that redirect back to login page.
-        4.Cart Page -> has a place order button that takes your order and stores it as data in mongoDB collection. 
-        (still in construction)
+        4.Cart Page -> shows all the products you have chose with options of remove a product, adding units and removing units.
+        5.Order Page -> after clicking the "place Order" on the Cart Page, you will get a message with phone number input.
+        6.After you input a phone number the order will be successful and you will be redirected back to products page.
         </pre>
         <h4>Thank you for visiting my Project !</h4> 
    

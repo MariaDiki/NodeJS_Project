@@ -272,6 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 border-bottom: 4px solid #462523;
                 margin: 0 auto;
                 font-weight: bold;
+                font-size: 14px;
             }
               
                 .footer {
