@@ -19,13 +19,14 @@
       var urlParams = new URLSearchParams(window.location.search);
       var username = urlParams.get("username");
       return username;
-    }
+      }
 
     document.addEventListener("DOMContentLoaded", function (event) {
       var username = getUsername();
       var usernameButton = document.getElementById("usernameButton");
       usernameButton.innerHTML = username;
       var homeButton = document.getElementById("HomeButton");
+      localStorage.setItem("username", username);
       homeButton.href = "productsPage.html?username=" + username;
       homeButton.addEventListener("click", function () {
         location.reload();
@@ -67,6 +68,7 @@
         });
     }
   </script>
+
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <script src="./javascripts/cart.js"></script>

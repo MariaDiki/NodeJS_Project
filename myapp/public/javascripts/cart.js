@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
             inCart: 0
         }
     ];
- /*------------------------- Loading Cart Page ----------------------------- */
+    /*------------------------- Loading Cart Page ----------------------------- */
     for (let i = 0; i < carts.length; i++) {
         carts[i].addEventListener('click', () => {
             cartNumbers(products[i]);
@@ -121,9 +121,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
 
+
+
     document.addEventListener("click", function (event) {
         if (event.target && event.target.id === "OrderButton") {
-            order();
+            orderFunction();
         }
     });
     function displayCart() {
@@ -264,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             
             <div class="Order-Container">
-            <button class="OrderButton" id="OrderButton" onclick="order()">Place Order</button>
+            <button class="OrderButton" id="OrderButton" onclick="orderFunction()">Place Order</button>
         </div>
           `;
 
@@ -313,283 +315,165 @@ document.addEventListener('DOMContentLoaded', function () {
 
         };
     }
-        /* ----------------ION-ICON functions------------------- */
+    /* ----------------ION-ICON functions------------------- */
 
-        function updateCartNumbers(change) {
-            let productNumbers = localStorage.getItem('cartNumbers');
-    
-            productNumbers = parseInt(productNumbers) || 0;
-    
-            productNumbers += change;
-    
-            localStorage.setItem('cartNumbers', productNumbers);
-            document.querySelector('.cartButton span').textContent = productNumbers;
-    
-        }
-    
-        function removeFromCart(productDiv, quantity) {
-            let updatedCartItems = localStorage.getItem('productsInCart');
-            updatedCartItems = JSON.parse(updatedCartItems);
-    
-            let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
-            if (updatedCartItems[targetTag]) {
-                if (updatedCartItems[targetTag].inCart > quantity) {
-                    updatedCartItems[targetTag].inCart -= quantity;
-                } else {
-                    delete updatedCartItems[targetTag];
-                }
-            }
-    
-            localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
-            updateCartNumbers(-quantity);
-            productDiv.remove();
-    
-        updateTotalCost();
-    
-        }
-        function removeUnitOFProduct(productDiv) {
-            console.log("inside remove quantity function")
-            let updatedCartItems = localStorage.getItem('productsInCart');
-            updatedCartItems = JSON.parse(updatedCartItems);
-    
-            let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
-            if (updatedCartItems[targetTag]) {
-                updatedCartItems[targetTag].inCart -= 1;
-            }
-    
-            localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
-    
-            updateCartNumbers(-1);
-    
-            const quantityElement = productDiv.querySelector('.quantity span');
-            quantityElement.textContent = updatedCartItems[targetTag].inCart;
-            updateTotalProduct(productDiv);
-            updateTotalCost();
-        }
-    
-    
-        function addQuantityToCart(productDiv) {
-            console.log("inside add quantity function")
-            let updatedCartItems = localStorage.getItem('productsInCart');
-            updatedCartItems = JSON.parse(updatedCartItems);
-    
-            let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
-            if (updatedCartItems[targetTag]) {
-                updatedCartItems[targetTag].inCart += 1;
-            }
-    
-            localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
-    
-            updateCartNumbers(1);
-    
-            const quantityElement = productDiv.querySelector('.quantity span');
-            quantityElement.textContent = updatedCartItems[targetTag].inCart;
-            updateTotalProduct(productDiv);
-            updateTotalCost();
-    
-    
-        }
-    
-        function updateTotalProduct(productDiv) {
-            let updatedCartItems = localStorage.getItem('productsInCart');
-    
-            updatedCartItems = JSON.parse(updatedCartItems);
-    
-            let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
-            const item = updatedCartItems[targetTag];
-    
-            const totalElement = productDiv.querySelector('.total');
-            totalElement.textContent = item.inCart * item.price;
-            updateTotalCost();
-        }
-        function updateTotalCost() {
-            let updatedCartItems = localStorage.getItem('productsInCart');
-            let oldTotal = localStorage.getItem('totalCost');
-            updatedCartItems = JSON.parse(updatedCartItems);
-          
-            let totalCost = 0;
-          
-            for (let item in updatedCartItems) {
-              totalCost += updatedCartItems[item].inCart * updatedCartItems[item].price;
-            }
-          
-            const basketTotal = document.querySelector('.basketTotal');
-            basketTotal.textContent = `$${totalCost}`;
-          
-            console.log("this is the oldTotal type:", typeof oldTotal);
-            console.log("this is the basketTotal type:", typeof basketTotal);
-          
-            let updatedTotal = JSON.stringify(totalCost); // stringify the totalCost variable
-          
-            console.log("this is the updatedTotal type:", typeof updatedTotal);
-            localStorage.setItem('totalCost', updatedTotal);
-            console.log("totalCost", totalCost);
-          }
-          
-    
-        /* ----------------Event Listeners------------------- */
-        document.addEventListener("click", function (event) {
-            if (event.target && event.target.id === "close-circle") {
-                let removeButton = event.target;
-                let productDiv = removeButton.closest(".products");
-                let quantity = parseInt(productDiv.querySelector('.quantity').textContent);
-                console.log(productDiv);
-                console.log(quantity);
-                removeFromCart(productDiv, quantity);
-            }
-    
-            if (event.target && event.target.name == "remove-circle-outline") {
-                console.log("remove circle clicked");
-                let removeUnitButton = event.target;
-                let productDiv = removeUnitButton.closest(".products");
-                console.log(productDiv);
-                const quantityElement = productDiv.querySelector('.quantity span');
-                console.log(quantityElement);
-                let quantity = parseInt(quantityElement.textContent);
-                console.log(quantity);
-    
-                if (quantity > 1) {
-                    removeUnitOFProduct(productDiv);
-                }
-                else {
-                    removeFromCart(productDiv, 1);
-                }
-            }
-    
-    
-            if (event.target && event.target.name == "add-circle-outline") {
-                console.log("add circle clicked");
-                let addUnitButton = event.target;
-                let productDiv = addUnitButton.closest(".products");
-                const quantityElement = productDiv.querySelector('.quantity span');
-                console.log(quantityElement);
-                addQuantityToCart(productDiv);
-    
-            }
-    
-        });
-        function order() {
-            console.log("order Button");
-            var orderButton = document.querySelector(".orderButton");
-            var bodymain = document.getElementById("bodymain");
-            
-                bodymain.innerHTML = "";
-             
-                bodymain.innerHTML = `      
-                <div id="card-container">
-                <div class="card-order">
-               
-                  <h1>Thank You for your order !</h1>
-                  <h4 class="h4">a member of our staff willl contact you by the phone number provided to seal the order</h4>
-                  <pre class="textBox" id="textBox"> 
-                    please insure that you provide your current phone number:
-                  </pre>
-                  <div class="phoneBox" id="phoneBox">
-                  <input type="text" placeholder="Phone:" id="phone" name="phone" maxlength="10" required>
-                  </div>
-                  <button type="submit" class="btn" onsubmit="placeOrder()">Submit</button>
-                </div>
-                </div>
-                <style>
-                .bodymain{
-                    height: 80vh;
-                    width:auto;
-                    display: flex;
-                    justify-content: center;
-                    align-items: flex-start;
+    function updateCartNumbers(change) {
+        let productNumbers = localStorage.getItem('cartNumbers');
 
-                }
+        productNumbers = parseInt(productNumbers) || 0;
 
-                .card-order {
-                    background-color: white;
-                    width: 85%;
-                    height: auto;
-                    color: #cb9b51;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    text-align: center;
-                    word-wrap:break-word;
-                    overflow-wrap:break-all;
-                    padding: 10px;
-                    margin-top: 150px ;
-                  }
+        productNumbers += change;
 
-                  .card-container {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    height: auto;
-                    margin-top: 150px ;
-                            
-                    
-            
-                  }
-                  .card-order .h4 {
-                    color: black;
-                  }
-            
-                
-                .textBox {
-                  color: black;
-                  text-align: start; 
-                  white-space: pre-wrap;
-                  margin: 0;
-                  font-family: arial;
-                
-                }
-                .phoneBox {
-                    width: auto;
-                    overflow: hidden;
-                    color: #cb9b51;
-                    font-size: 20px;
-                    padding: 8px 0;
-                    margin: 8px 0;
-                    border-bottom: 1px solid#cb9b51;
-                }
-                
-                .phoneBox input {
-                    border: none;
-                    outline: none;
-                    background: none;
-                    color: #cb9b51;
-                    font-size: 18px;
-                    float: left;
-                    width: auto;
-                    margin: 0 10px;
-                }
-                .btn {
-                    width: auto;
-                    background: black;
-                    border: 2px solid #cb9b51;
-                    color:#cb9b51;
-                    padding: 5px;
-                    font-size: 18px;
-                    cursor: pointer;
-                    margin: 12px 0;
-                }
-                .btn:hover {
-                    background-color: #cb9b51;
-                }
+        localStorage.setItem('cartNumbers', productNumbers);
+        document.querySelector('.cartButton span').textContent = productNumbers;
 
-
-                
-                  </style>
-          
-          
-                }
-              `;
-    
-        
     }
+
+    function removeFromCart(productDiv, quantity) {
+        let updatedCartItems = localStorage.getItem('productsInCart');
+        updatedCartItems = JSON.parse(updatedCartItems);
+
+        let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
+        if (updatedCartItems[targetTag]) {
+            if (updatedCartItems[targetTag].inCart > quantity) {
+                updatedCartItems[targetTag].inCart -= quantity;
+            } else {
+                delete updatedCartItems[targetTag];
+            }
+        }
+
+        localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
+        updateCartNumbers(-quantity);
+        productDiv.remove();
+
+        updateTotalCost();
+
+    }
+    function removeUnitOFProduct(productDiv) {
+        console.log("inside remove quantity function")
+        let updatedCartItems = localStorage.getItem('productsInCart');
+        updatedCartItems = JSON.parse(updatedCartItems);
+
+        let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
+        if (updatedCartItems[targetTag]) {
+            updatedCartItems[targetTag].inCart -= 1;
+        }
+
+        localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
+
+        updateCartNumbers(-1);
+
+        const quantityElement = productDiv.querySelector('.quantity span');
+        quantityElement.textContent = updatedCartItems[targetTag].inCart;
+        updateTotalProduct(productDiv);
+        updateTotalCost();
+    }
+
+
+    function addQuantityToCart(productDiv) {
+        console.log("inside add quantity function")
+        let updatedCartItems = localStorage.getItem('productsInCart');
+        updatedCartItems = JSON.parse(updatedCartItems);
+
+        let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
+        if (updatedCartItems[targetTag]) {
+            updatedCartItems[targetTag].inCart += 1;
+        }
+
+        localStorage.setItem('productsInCart', JSON.stringify(updatedCartItems));
+
+        updateCartNumbers(1);
+
+        const quantityElement = productDiv.querySelector('.quantity span');
+        quantityElement.textContent = updatedCartItems[targetTag].inCart;
+        updateTotalProduct(productDiv);
+        updateTotalCost();
+
+
+    }
+
+    function updateTotalProduct(productDiv) {
+        let updatedCartItems = localStorage.getItem('productsInCart');
+
+        updatedCartItems = JSON.parse(updatedCartItems);
+
+        let targetTag = productDiv.querySelector('img').getAttribute('src').split('/')[1].split('.')[0];
+        const item = updatedCartItems[targetTag];
+
+        const totalElement = productDiv.querySelector('.total');
+        totalElement.textContent = item.inCart * item.price;
+        updateTotalCost();
+    }
+    function updateTotalCost() {
+        let updatedCartItems = localStorage.getItem('productsInCart');
+        let oldTotal = localStorage.getItem('totalCost');
+        updatedCartItems = JSON.parse(updatedCartItems);
+
+        let totalCost = 0;
+
+        for (let item in updatedCartItems) {
+            totalCost += updatedCartItems[item].inCart * updatedCartItems[item].price;
+        }
+
+        const basketTotal = document.querySelector('.basketTotal');
+        basketTotal.textContent = `$${totalCost}`;
+
+        console.log("this is the oldTotal type:", typeof oldTotal);
+        console.log("this is the basketTotal type:", typeof basketTotal);
+
+        let updatedTotal = JSON.stringify(totalCost); // stringify the totalCost variable
+
+        console.log("this is the updatedTotal type:", typeof updatedTotal);
+        localStorage.setItem('totalCost', updatedTotal);
+        console.log("totalCost", totalCost);
+    }
+
+
+    /* ----------------Event Listeners------------------- */
+    document.addEventListener("click", function (event) {
+        if (event.target && event.target.id === "close-circle") {
+            let removeButton = event.target;
+            let productDiv = removeButton.closest(".products");
+            let quantity = parseInt(productDiv.querySelector('.quantity').textContent);
+            console.log(productDiv);
+            console.log(quantity);
+            removeFromCart(productDiv, quantity);
+        }
+
+        if (event.target && event.target.name == "remove-circle-outline") {
+            console.log("remove circle clicked");
+            let removeUnitButton = event.target;
+            let productDiv = removeUnitButton.closest(".products");
+            console.log(productDiv);
+            const quantityElement = productDiv.querySelector('.quantity span');
+            console.log(quantityElement);
+            let quantity = parseInt(quantityElement.textContent);
+            console.log(quantity);
+
+            if (quantity > 1) {
+                removeUnitOFProduct(productDiv);
+            }
+            else {
+                removeFromCart(productDiv, 1);
+            }
+        }
+
+
+        if (event.target && event.target.name == "add-circle-outline") {
+            console.log("add circle clicked");
+            let addUnitButton = event.target;
+            let productDiv = addUnitButton.closest(".products");
+            const quantityElement = productDiv.querySelector('.quantity span');
+            console.log(quantityElement);
+            addQuantityToCart(productDiv);
+
+        }
+
+    });
 
 
     onLoadCartNumbers();
     displayCart();
-
- /*------------------------- Loading Order Page ----------------------------- */
-
 
 
 });
@@ -597,5 +481,192 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+/*------------------------- Loading Order Page ----------------------------- */
+function orderFunction() {
+    console.log("order Button");
+    var orderButton = document.querySelector("OrderButton");
+    var bodymain = document.getElementById("bodymain");
+
+    bodymain.innerHTML = "";
+
+    bodymain.innerHTML = `      
+    <div id="card-container">
+    <div class="card-order">
+   
+      <h1>Thank You for your order !</h1>
+      <h4 class="h4">a member of our staff willl contact you by the phone number provided to seal the order</h4>
+      <pre class="textBox" id="textBox"> 
+        please insure that you provide your current phone number:
+      </pre>
+      <div class="phoneBox" id="phoneBox">
+      <input type="text" placeholder="Phone:" id="phone" name="phone" maxlength="10" required>
+      </div>
+      <button type="submit" class="btn" id="btn"">Submit</button>
+    </div>
+    </div>
+    <style>
+    .bodymain{
+        height: 80vh;
+        width:auto;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+
+    }
+
+    .card-order {
+        background-color: white;
+        width: 85%;
+        height: auto;
+        color: #cb9b51;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        word-wrap:break-word;
+        overflow-wrap:break-all;
+        padding: 10px;
+        margin-top: 150px ;
+      }
+
+      .card-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        margin-top: 150px ;
+                
+                
+      }
+      .card-order .h4 {
+        color: black;
+      }
+
+    
+    .textBox {
+      color: black;
+      text-align: start; 
+      white-space: pre-wrap;
+      margin: 0;
+      font-family: arial;
+    
+    }
+    .phoneBox {
+        width: auto;
+        overflow: hidden;
+        color: #cb9b51;
+        font-size: 20px;
+        padding: 8px 0;
+        margin: 8px 0;
+        border-bottom: 1px solid#cb9b51;
+    }
+    
+    .phoneBox input {
+        border: none;
+        outline: none;
+        background: none;
+        color: #cb9b51;
+        font-size: 18px;
+        float: left;
+        width: auto;
+        margin: 0 10px;
+    }
+    .btn {
+        width: auto;
+        background: black;
+        border: 2px solid #cb9b51;
+        color:#cb9b51;
+        padding: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        margin: 12px 0;
+    }
+    .btn:hover {
+        background-color: #cb9b51;
+    }
+
+
+      </style>
+
+
+    }
+  `;
+    var submitButton = document.getElementById("btn");
+    submitButton.addEventListener("click", function () {
+        console.log("Submit button clicked");
+        var phone = document.getElementById("phone").value;
+        var phoneRegex = /^\d{10}$/;
+        if (!phone.match(phoneRegex)) {
+          alert("Please enter a valid phone number.");
+          return; 
+          
+        }
+        else {
+      
+        var username = localStorage.getItem("username");
+        var productsIntCartOrder = JSON.parse(localStorage.getItem("productsInCart"));
+        var products = [];
+
+        for (var key in productsIntCartOrder) {
+            if (productsIntCartOrder.hasOwnProperty(key)) {
+                var product = {
+                    name: productsIntCartOrder[key].name,
+                    inCart: productsIntCartOrder[key].inCart
+                };
+                products.push(product);
+            }
+        }
+        var totalCostOrder = localStorage.getItem("totalCost");
+        var orderData = {
+            username: username,
+            phone: phone,
+            products: products,
+            totalCost: totalCostOrder
+
+        };
+        console.log("the data is:", orderData);
+        newOrder(orderData);
+    }
+    localStorage.removeItem("productsInCart");
+    localStorage.removeItem("totalCost");
+    localStorage.removeItem("cartNumbers");
+  
+    window.location.reload();
+    window.alert("Order has been successfully placed!");
+
+    });
+
+
+
+}
+
+function newOrder(orderData) {
+    let url;
+
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        url = 'http://localhost:3000/products/new-order';
+    } else {
+        url = '/products/new-order';
+    }
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderData)
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log('Order sent successfully');
+            } else {
+                console.log('Error sending order:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.log('Error sending order:', error);
+        });
+}
 
 

@@ -27,6 +27,11 @@ router.post('/about', urlencodedParser, function(req, res, next) {
   productController.showAbout(req,res);
 });
 
+router.post('/new-order', urlencodedParser, function(req, res, next) {
+  productController.newOrder(req,res);
+  
+});
+
 
 
 module.exports = router; 

@@ -3,7 +3,7 @@ const productService  = require('../services/productService');
 class productController {
 
     constructor(){
-    }
+    } 
 
 
     showCart(req,res) {
@@ -16,6 +16,11 @@ class productController {
         const html = productService.aboutText(req);
         res.status(200).send(html);
 
+      }
+      newOrder(req,res){
+        console.log("hello from route");
+        productService.newOrder(req);
+        res.sendStatus(200);
       }
       
 }

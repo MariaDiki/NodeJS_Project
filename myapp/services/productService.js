@@ -1,15 +1,49 @@
+const mongoose = require('mongoose');
 class productService {
 
   constructor() {
+    this.orderConnection = mongoose.createConnection('mongodb://localhost/DDG_NodeJS', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
 
   }
 
-  placeOrder(req, callback) {
-    console.log('Order placed');
-  }
+   newOrder(req, res) {
+  
+
+      console.log('Order placed');
+      const orderSchema = new mongoose.Schema({
+        username: String,
+        phone: String,
+        products: Array,
+        totalCost: Number
+      });
+  
+      const OrderModel = this.orderConnection.model('orders', orderSchema);
+  
+      OrderModel.create({
+        username: req.body.username,
+        phone: req.body.phone,
+        products: req.body.products,
+        totalCost: req.body.totalCost
+      })
+        .then(() => {
+          console.log('Order inserted successfully');
+        })
+        .catch((err) => {
+          console.log('Error inserting order:', err);
+         
+        });
+    }
+  
+
+
+  
+
   aboutText(req) {
     // Generate HTML string
-    
+
     const html = `
       <div id="card-container">
       <div class="card-about">
@@ -87,7 +121,7 @@ class productService {
     `;
 
     console.log('About Service')
-   return html;
+    return html;
   }
 
 
