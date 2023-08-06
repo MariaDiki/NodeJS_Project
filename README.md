@@ -1,10 +1,21 @@
 # NodeJS_Project
 NodeJs final project
 
+How To Downloading:
+
+Clone the project.
+
+Create mongoDB database:
+1. open mongosh and type: mongodb://localhost/your_name
+2. create database : use DDG_NodeJS
+3. create users collection : db.createCollection("users")
+3. create users collection : db.createCollection("orders")
+
+ 
 How to activate the program after downloading? 
 1. open the folder on visual studio code.
 2. open terminal and navigate to "myapp" folder.
-3. type "npm start" and press enter.
+3. type "npm start" and press enter or "nodemon" if you have nodemon install if not type "npm install nodemon".
 4. Open a web browser and write http://localhost:3000 and it will open the login page.
 
 Login Page:
