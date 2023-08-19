@@ -49,8 +49,20 @@ class productService {
       <div class="card-about">
      
         <h1>Welcome to my NodeJs Project!</h1>
-        <h4 class="h4">This website was made using NodeJS MVC pattern,
-          Express, MongoDB, HTML and CSS.
+        <h4 class="h4">This website was made with a solid foundation in programming languages such as HTML, CSS, and JavaScript,
+        coupled with a deep understanding of web development principles, I am eager to translate my theoretical knowledge
+        into practical solutions. My dedication to self-driven learning has led me to explore various frameworks and tools,
+        as I am committed to staying abreast of industry trends. In this project I have improved my MVC design pattern
+        knowledge combined with vanilla JS coding while keeping the code readable and organized.
+        I thrive on challenges and look forward to collaborating with experienced professionals
+        to cultivate a hands-on understanding of building robust and user-centric applications.
+        My enthusiastic approach, coupled with my determination to continuously enhance my skills,
+        positions me to contribute effectively to projects that require innovation and technical excellence.
+        I hope that thanks to my diversity in code I was able to present to you the tools I acquired
+        by self-learning, hard work, and a real passion for creating various projects.
+        After 5+ years of working as a PMO and gaining experience in managing projects in terms of schedules, budget, risk management and execution phases in the field of construction and infrastructure, it's time to change my route.
+        So, if by chance a Fullstack or Frontend job pops up for you 
+        then I'd be more than happy if you will to contact me :) 0545266614 or mariadiki21@gmail.com.
         </h4>
         <pre class="textBox" id="textBox"> 
         The Structure of this project is:
@@ -107,6 +119,9 @@ class productService {
       
       .card-about .h4 {
         color: black;
+        text-align: start; 
+        width: 95%;
+        
       }
       .textBox {
         color: black;
@@ -116,8 +131,6 @@ class productService {
         font-family: arial;
       
       }
- 
-      
         </style>
 
 
