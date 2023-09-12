@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('Users', userSchema);
 
 const app = express();
+app.use(express.urlencoded({extended: true}));
 
 class Queries {
   constructor() {
