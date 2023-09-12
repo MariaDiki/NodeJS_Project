@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 class productService {
 
   constructor() {
-    this.orderConnection = mongoose.createConnection('mongodb://localhost/DDG_NodeJS', {
+    this.orderConnection = mongoose.createConnection('mongodb+srv://maria:169shLIwco7b3IEy@cluster0.esme3ba.mongodb.net/?retryWrites=true&w=majority', {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
