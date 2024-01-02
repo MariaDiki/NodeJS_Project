@@ -84,12 +84,11 @@ class productService {
       </div>
       <style>
       .footer{
-        display: flex;
-        flex-wrap: wrap;
+
         justify-content: end;
         padding: 20px;
         bottom: 0;
-        position:absolute;
+
       }
       
       .card-container {
